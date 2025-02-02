@@ -130,3 +130,49 @@ form.login {
   background: #fff;
   border-radius: 4px;
 }
+/* Button container inside edit mode */
+.button-group {
+  display: flex;
+  gap: 10px; /* Add spacing between buttons */
+  margin-top: 10px;
+}
+
+/* Styling for save and cancel buttons */
+.save-btn {
+  background-color: #28a745; /* Green */
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background-color: #dc3545; /* Red */
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Icons container */
+.icon-group {
+  display: flex;
+  gap: 10px; /* Add spacing between icons */
+  margin-top: 10px;
+}
+
+/* Delete icon styling */
+.delete-icon {
+  color: red;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+/* Edit icon styling */
+.edit-icon {
+  color: blue;
+  cursor: pointer;
+  font-size: 24px;
+}

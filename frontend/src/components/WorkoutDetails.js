@@ -67,8 +67,12 @@ function WorkoutDetails({ workout }) {
           <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
           <input type="number" value={load} onChange={(e) => setLoad(e.target.value)} />
           <input type="number" value={reps} onChange={(e) => setReps(e.target.value)} />
-          <button onClick={handleEdit}>Save</button>
-          <button onClick={() => setIsEditing(false)}>Cancel</button>
+
+          {/* Buttons container with flexbox */}
+          <div className="button-group">
+            <button onClick={handleEdit} className="save-btn">Save</button>
+            <button onClick={() => setIsEditing(false)} className="cancel-btn">Cancel</button>
+          </div>
         </div>
       ) : (
         <div>
@@ -84,12 +88,16 @@ function WorkoutDetails({ workout }) {
           <p>
             {formatDistanceToNow(new Date(workout.createdAt), { addSuffix: true })}
           </p>
-          <span className="material-symbols-outlined" onClick={handleDelete}>
-            delete
-          </span>
-          <span className="material-symbols-outlined" onClick={() => setIsEditing(true)}>
-            edit
-          </span>
+
+          {/* Icons container with flexbox */}
+          <div className="icon-group">
+            <span className="material-symbols-outlined delete-icon" onClick={handleDelete}>
+              delete
+            </span>
+            <span className="material-symbols-outlined edit-icon" onClick={() => setIsEditing(true)}>
+              edit
+            </span>
+          </div>
         </div>
       )}
     </div>
