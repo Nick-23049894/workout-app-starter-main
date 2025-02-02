@@ -18,6 +18,12 @@ export const workoutReducer = (state, action) => {
           (workout) => workout._id !== action.payload._id
         ),
       };
+    case "UPDATE_WORKOUT": // ✅ Added update functionality
+      return {
+        workouts: state.workouts.map((workout) =>
+          workout._id === action.payload._id ? action.payload : workout
+        ),
+      };
     default:
       return state;
   }
@@ -26,8 +32,6 @@ export const workoutReducer = (state, action) => {
 export const WorkoutContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(workoutReducer, { workouts: null });
 
-  // children are the components that are inside the provider
-  // value is available to all the children components
   return (
     <WorkoutContext.Provider value={{ ...state, dispatch }}>
       {children}
