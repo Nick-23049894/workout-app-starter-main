@@ -1,40 +1,58 @@
-require('dotenv').config();
+// Entry file for the backend app
+// where we register the express app
 
-const express = require('express');
-const mongoose = require('mongoose');
-const workoutRoutes = require('./routes/workouts');
-const cors = require('cors');
-const userRoutes = require('./routes/user');
+// dovenv is the package that loads environment variables
+// from .env file into process.env object available globally in node.js environment
+// config() attaches environment variables to process.env
+require("dotenv").config();
 
-// express app
+// Require express that installed via npm
+const express = require("express");
+// Require mongoose that installed via npm
+const mongoose = require("mongoose");
+// Require routes
+const workoutRoutes = require("./routes/workouts");
+const userRoutes = require("./routes/user");
+// Require cors
+const cors = require("cors");
+
+// Set up the express app
 const app = express();
+
+// Allow requests from all origins (for development only)
 app.use(cors());
 
-// middleware
+// Handle preflight requests globally
+app.options("*", cors());
+
+// Middleware:
+// any code that executes between us getting a request on the server
+// and us sending a response back to the client
+
+// Parse and attach data sent to server to request object
 app.use(express.json());
 
+// Global middleware
+// the arrow function will fire for each request that comes in
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
 
-// Root route
-app.get('/', (req, res) => {
-  res.send('Welcome to the Workout API!');
-});
+// Routes
+// workoutRoutes is triggered when we make a request to /api/workouts
+app.use("/api/workouts", workoutRoutes);
+app.use("/api/user", userRoutes);
 
-// API routes
-app.use('/api/workouts', workoutRoutes);
-app.use('/api/user', userRoutes);
-
-// connect to db
+// Connect to DB
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
+    // Listen for requests
     app.listen(process.env.PORT, () => {
-      console.log('connected to db & listening on port', process.env.PORT);
+      console.log("Connected to DB & listening on port", process.env.PORT);
     });
   })
-  .catch((error) => {
-    console.log(error);
+  .catch((err) => {
+    console.log(err);
   });
